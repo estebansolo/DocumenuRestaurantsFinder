@@ -20,7 +20,7 @@ const {
 } = process.env;
 
 //const url = `mongodb://${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}`;
-const url = process.env.DEV_MONGO_URI
+const url = process.env.MONGO_URI || "mongodb://localhost:27017/myapp"
 
 mongoose.connect(url, {
 	useNewUrlParser: true,
