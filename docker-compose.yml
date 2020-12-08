@@ -1,0 +1,35 @@
+version: "3"
+services:
+    nodejs:
+        build: .
+        ports: 
+            - "5000:5000"
+        env_file: .env
+        environment:
+          - DOCUMENU_KEY=$DOCUMENU_KEY
+          - SECRET=$SECRET
+        volumes:
+            - .:/home/node/app
+            - node_modules:/home/node/app/node_modules
+        links:
+            - db
+        networks:
+            - app-network
+    db:
+        image: mongo:4.1.8-xenial
+        container_name: db
+        restart: unless-stopped
+        volumes:
+          - dbdata:/data/db
+        networks:
+          - app-network
+        ports:
+          - "27017:27017"
+
+networks:
+    app-network:
+        driver: bridge
+
+volumes:
+    dbdata:
+    node_modules:
